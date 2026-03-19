@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pocketly – Student Finance Buddy</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="logo">
+          <img src="pocketly-logo.png" alt="Pocketly logo" class="logo-img" />
+          <div class="logo-text">
+            <span class="logo-title">Pocketly</span>
+            <span class="logo-subtitle">Smart Money. Young Future.</span>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-item active" data-section="overview">
+            <span class="nav-icon">🏠</span>
+            <span>Overview</span>
+          </button>
+          <button class="nav-item" data-section="snap">
+            <span class="nav-icon">📸</span>
+            <span>Snap &amp; Track</span>
+          </button>
+          <button class="nav-item" data-section="goals">
+            <span class="nav-icon">🎯</span>
+            <span>Goal Buckets</span>
+          </button>
+          <button class="nav-item" data-section="budget">
+            <span class="nav-icon">💸</span>
+            <span>Smart Daily Budget</span>
+          </button>
+          <button class="nav-item" data-section="split">
+            <span class="nav-icon">🤝</span>
+            <span>Split Buddy</span>
+          </button>
+          <button class="nav-item" data-section="insights">
+            <span class="nav-icon">🧠</span>
+            <span>Insights &amp; AI</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="streak-pill">
+            <span>🔥 7-day streak</span>
+          </div>
+          <p class="sidebar-note">Small daily wins &gt; big one-time sacrifices.</p>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar-left">
+            <h1>Welcome back, <span id="userNameLabel">Student</span>!</h1>
+            <p class="topbar-sub">
+              Pocketly is your friendly co-pilot for money – not a boring spreadsheet.
+            </p>
+          </div>
+          <div class="topbar-right">
+            <div class="chip chip-soft">Beta • Campus Edition</div>
+            <div class="auth-pill" id="authPill">
+              <span id="authStatus">Not connected</span>
+              <button class="primary-btn ghost small" id="loginBtn">Log in</button>
+            </div>
+            <button class="primary-btn ghost" id="themeToggle">Toggle theme</button>
+          </div>
+        </header>
+
+        <section class="section" id="overview-section">
+          <div class="grid grid-3">
+            <div class="card highlight">
+              <div class="card-header">
+                <h2>Today's Safe-to-Spend</h2>
+                <span class="pill-success">On track</span>
+              </div>
+              <div class="safe-amount">
+                <span class="currency">₹</span>
+                <span id="safeAmount">740</span>
+              </div>
+              <p class="card-sub">
+                You can grab coffee, lunch, and still stay inside your weekly target.
+              </p>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 62%"></div>
+              </div>
+              <div class="progress-labels">
+                <span>Spent: ₹460</span>
+                <span>Limit: ₹1,200</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h2>Goal Buckets</h2>
+                <button class="chip chip-soft small" data-section-jump="goals">
+                  View all
+                </button>
+              </div>
+              <div class="goal-list">
+                <div class="goal-row">
+                  <div>
+                    <p class="goal-title">Goa Trip</p>
+                    <p class="goal-meta">₹6,000 / ₹10,000</p>
+                  </div>
+                  <div class="goal-bar">
+                    <div class="goal-fill purple" style="width: 60%"></div>
+                  </div>
+                </div>
+                <div class="goal-row">
+                  <div>
+                    <p class="goal-title">Noise Cancelling Headphones</p>
+                    <p class="goal-meta">₹2,500 / ₹5,000</p>
+                  </div>
+                  <div class="goal-bar">
+                    <div class="goal-fill teal" style="width: 50%"></div>
+                  </div>
+                </div>
+                <div class="goal-row">
+                  <div>
+                    <p class="goal-title">Birthday Party</p>
+                    <p class="goal-meta">₹1,800 / ₹3,000</p>
+                  </div>
+                  <div class="goal-bar">
+                    <div class="goal-fill amber" style="width: 70%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h2>Energy Rings</h2>
+                <span class="pill-neutral">This week</span>
+              </div>
+              <div class="rings">
+                <div class="ring">
+                  <svg viewBox="0 0 120 120">
+                    <circle class="ring-bg" cx="60" cy="60" r="48" />
+                    <circle class="ring-fg food" cx="60" cy="60" r="48" />
+                  </svg>
+                  <div class="ring-label">
+                    <span>Food</span>
+                    <strong>78%</strong>
+                  </div>
+                </div>
+                <div class="ring">
+                  <svg viewBox="0 0 120 120">
+                    <circle class="ring-bg" cx="60" cy="60" r="40" />
+                    <circle class="ring-fg fun" cx="60" cy="60" r="40" />
+                  </svg>
+                  <div class="ring-label">
+                    <span>Fun</span>
+                    <strong>52%</strong>
+                  </div>
+                </div>
+                <div class="ring">
+                  <svg viewBox="0 0 120 120">
+                    <circle class="ring-bg" cx="60" cy="60" r="32" />
+                    <circle class="ring-fg travel" cx="60" cy="60" r="32" />
+                  </svg>
+                  <div class="ring-label">
+                    <span>Travel</span>
+                    <strong>34%</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-2 mt-lg">
+            <div class="card">
+              <div class="card-header">
+                <h2>Recent Activity</h2>
+                <span class="pill-neutral">Today</span>
+              </div>
+              <ul class="activity-list" id="activityList"></ul>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h2>Today's Nudge</h2>
+              </div>
+              <div class="nudge">
+                <p class="nudge-title">Swap one spend, save one dream.</p>
+                <p class="nudge-body">
+                  Skip 1 delivery this week and you get 18% closer to your Goa Trip. Want me to
+                  auto-move that money to your goal bucket?
+                </p>
+                <div class="nudge-actions">
+                  <button class="primary-btn small">Yes, auto-save it</button>
+                  <button class="secondary-btn small subtle">Maybe later</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section hidden" id="snap-section">
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="card-header">
+                <h2>Snap &amp; Track</h2>
+                <span class="pill-neutral">Capture receipts in 3s</span>
+              </div>
+              <p class="card-sub">
+                Drop a screenshot or snap a bill and Pocketly will auto-read the amount and category
+                (mocked in this demo).
+              </p>
+              <label class="dropzone" for="receiptInput">
+                <input type="file" id="receiptInput" accept="image/*" hidden />
+                <div class="dropzone-inner">
+                  <span class="drop-icon">📸</span>
+                  <p class="drop-title">Drag &amp; drop receipt</p>
+                  <p class="drop-sub">or click to browse files</p>
+                </div>
+              </label>
+              <div class="snap-result hidden" id="snapResult">
+                <p class="snap-title">Detected expense</p>
+                <p class="snap-body" id="snapText"></p>
+              </div>
+            </div>
+
+            <div class="card phone-mock">
+              <div class="phone-header">
+                <span class="phone-pill">Pocketly • SMS Sync</span>
+              </div>
+              <ul class="sms-list">
+                <li class="sms sms-bank">
+                  <span class="sms-from">HDFC Bank</span>
+                  <p>Card txn of ₹189.00 at Zomato. Avl bal: ₹3,214.00</p>
+                </li>
+                <li class="sms sms-pocketly">
+                  <span class="sms-from">Pocketly</span>
+                  <p>
+                    Caught it! Logged <strong>Food • ₹189</strong>. You're still inside today's
+                    safe-to-spend. ✨
+                  </p>
+                </li>
+                <li class="sms sms-bank">
+                  <span class="sms-from">SBI</span>
+                  <p>UPI txn of ₹72.00 to METRO STN. Avl bal: ₹1,920.00</p>
+                </li>
+                <li class="sms sms-pocketly">
+                  <span class="sms-from">Pocketly</span>
+                  <p>
+                    Noted <strong>Commute • ₹72</strong>. 3 rides left to hit your weekly cap. 🚉
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section hidden" id="goals-section">
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="card-header">
+                <h2>Your Goal Buckets</h2>
+                <button class="chip chip-soft small" id="addGoalBtn">+ New goal</button>
+              </div>
+              <div class="goal-board" id="goalBoard"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h2>Auto-save Rules</h2>
+              </div>
+              <ul class="rules-list">
+                <li>
+                  <span class="dot green"></span>
+                  <div>
+                    <p>Rounding Rule</p>
+                    <p class="rule-sub">
+                      Round every spend to the next ₹50, move the spare change into your top goal.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <span class="dot purple"></span>
+                  <div>
+                    <p>Exam Hustle Rule</p>
+                    <p class="rule-sub">Every freelance payout auto-routes 15% to "Goa Trip".</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="dot amber"></span>
+                  <div>
+                    <p>No-Delivery Sundays</p>
+                    <p class="rule-sub">
+                      If you skip ordering in, Pocketly nudges you to stash the same amount.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section hidden" id="budget-section">
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="card-header">
+                <h2>Smart Daily Budget</h2>
+              </div>
+              <form class="form" id="budgetForm">
+                <div class="form-row">
+                  <label for="incomeInput">Monthly pocket money / income</label>
+                  <input
+                    type="number"
+                    id="incomeInput"
+                    min="0"
+                    placeholder="e.g. 8000"
+                    required
+                  />
+                </div>
+                <div class="form-row">
+                  <label for="fixedInput">Fixed costs (rent, bus pass, etc.)</label>
+                  <input
+                    type="number"
+                    id="fixedInput"
+                    min="0"
+                    placeholder="e.g. 3000"
+                    required
+                  />
+                </div>
+                <div class="form-row">
+                  <label for="savingsInput">Monthly savings target</label>
+                  <input
+                    type="number"
+                    id="savingsInput"
+                    min="0"
+                    placeholder="e.g. 1500"
+                    required
+                  />
+                </div>
+                <button type="submit" class="primary-btn wide">Calculate my daily budget</button>
+              </form>
+              <div class="budget-result hidden" id="budgetResult">
+                <p class="budget-number">
+                  You can safely spend <strong id="dailyBudget">₹0</strong> per day.
+                </p>
+                <p class="budget-tip" id="budgetTip"></p>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h2>Spending Rhythm</h2>
+                <span class="pill-neutral">Mocked chart</span>
+              </div>
+              <div class="chart">
+                <div class="chart-bars">
+                  <div class="chart-bar" style="--h: 42%">
+                    <span>Mon</span>
+                  </div>
+                  <div class="chart-bar" style="--h: 65%">
+                    <span>Tue</span>
+                  </div>
+                  <div class="chart-bar" style="--h: 88%">
+                    <span>Wed</span>
+                  </div>
+                  <div class="chart-bar" style="--h: 52%">
+                    <span>Thu</span>
+                  </div>
+                  <div class="chart-bar" style="--h: 70%">
+                    <span>Fri</span>
+                  </div>
+                  <div class="chart-bar" style="--h: 40%">
+                    <span>Sat</span>
+                  </div>
+                  <div class="chart-bar" style="--h: 24%">
+                    <span>Sun</span>
+                  </div>
+                </div>
+              </div>
+              <p class="chart-caption">
+                Pocketly would subtly lower your safe-to-spend on high-risk days (Fri/Sat) so you
+                don't run dry mid-month.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section hidden" id="split-section">
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="card-header">
+                <h2>Split Buddy</h2>
+                <span class="pill-neutral">Group expenses</span>
+              </div>
+              <p class="card-sub">
+                Create a pot with friends, track who owes what, and let Pocketly suggest fair
+                settlements.
+              </p>
+              <form class="form" id="splitForm">
+                <div class="form-row">
+                  <label for="friendName">Friend name</label>
+                  <input type="text" id="friendName" placeholder="e.g. Ayesha" />
+                </div>
+                <div class="form-row">
+                  <label for="friendAmount">Amount they paid for the group</label>
+                  <input type="number" id="friendAmount" placeholder="e.g. 600" />
+                </div>
+                <button type="button" class="primary-btn small" id="addSplitBtn">
+                  Add to pot
+                </button>
+              </form>
+              <ul class="split-list" id="splitList"></ul>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h2>Suggested Settle-up</h2>
+              </div>
+              <div class="settle-box" id="settleBox">
+                <p class="settle-empty">
+                  Add a few group spends and Pocketly will suggest the minimum number of payments to
+                  make it fair.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section hidden" id="insights-section">
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="card-header">
+                <h2>GPS Spending Map</h2>
+                <span class="pill-neutral">Concept mock</span>
+              </div>
+              <div class="map-mock">
+                <div class="map-spot spot-1">
+                  <span class="spot-dot food"></span>
+                  <div class="spot-card">
+                    <p>Café Street</p>
+                    <p class="spot-meta">18 spends this month • Mostly food</p>
+                  </div>
+                </div>
+                <div class="map-spot spot-2">
+                  <span class="spot-dot fun"></span>
+                  <div class="spot-card">
+                    <p>Mall Square</p>
+                    <p class="spot-meta">5 spends • Shopping / movies</p>
+                  </div>
+                </div>
+                <div class="map-spot spot-3">
+                  <span class="spot-dot commute"></span>
+                  <div class="spot-card">
+                    <p>Metro Line</p>
+                    <p class="spot-meta">12 spends • Commute</p>
+                  </div>
+                </div>
+              </div>
+              <p class="chart-caption">
+                In a real app, Pocketly would surface "hot zones" where you're most likely to overspend
+                and nudge you before you tap "Pay".
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h2>AI Money Buddy</h2>
+              </div>
+              <div class="ai-box">
+                <p class="ai-prompt-label">Ask Pocketly anything</p>
+                <textarea
+                  id="aiPrompt"
+                  rows="3"
+                  placeholder="e.g. How can I save ₹1,000 this month without cancelling all my fun?"
+                ></textarea>
+                <button class="primary-btn small" id="aiSuggestBtn">Get suggestion</button>
+                <div class="ai-response hidden" id="aiResponse"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+

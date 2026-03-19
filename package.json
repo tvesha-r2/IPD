@@ -1,0 +1,20 @@
+{
+  "name": "pocketly",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Pocketly finance tracker demo (frontend + full backend API)",
+  "scripts": {
+    "dev:api": "node --watch server/server.js",
+    "dev:web": "npx --yes http-server . -p 8000",
+    "dev": "npm run dev:api"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.0"
+  }
+}
+
