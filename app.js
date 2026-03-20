@@ -327,111 +327,116 @@ function initSplitBuddy() {
   function renderSplitState() {
     list.innerHTML = "";
 
-    if (!splitExpenses.length) {
-      return;
-    }
+    if (!splitExpenses.length) return;
 
     splitExpenses.forEach((exp, idx) => {
       const li = document.createElement("li");
       li.className = "split-item";
+
+      const perPerson = exp.amount / exp.participants.length;
+
       li.innerHTML = `
         <div>
           <div>${exp.payer}</div>
-          <div class="split-meta">Paid ₹${exp.amount} for everyone</div>
+          <div class="split-meta">
+            Paid ₹${exp.amount} for ${exp.participants.join(", ")} 
+            (₹${perPerson.toFixed(0)} each)
+          </div>
         </div>
         <div>Bill #${idx + 1}</div>
       `;
       list.appendChild(li);
     });
 
-    // Compute balances
-    const people = Array.from(splitParticipants);
-    const total = splitExpenses.reduce((sum, e) => sum + e.amount, 0);
-    const share = total / Math.max(people.length, 1);
+    // ✅ BALANCE CALCULATION
+    let balances = {};
+    splitParticipants.forEach(p => balances[p] = 0);
 
-    const balances = {};
-    people.forEach((p) => {
-      balances[p] = 0;
-    });
+    splitExpenses.forEach(e => {
+      const share = e.amount / e.participants.length;
 
-    splitExpenses.forEach((e) => {
+      // payer paid full amount
       balances[e.payer] += e.amount;
+
+      // everyone owes equal share
+      e.participants.forEach(p => {
+        balances[p] -= share;
+      });
     });
 
-    people.forEach((p) => {
-      balances[p] -= share;
-    });
-
-    // Prepare creditors and debtors
     const creditors = [];
     const debtors = [];
+
     Object.entries(balances).forEach(([name, bal]) => {
       const rounded = Math.round(bal);
-      if (rounded > 0) {
-        creditors.push({ name, amount: rounded });
-      } else if (rounded < 0) {
-        debtors.push({ name, amount: -rounded });
-      }
+      if (rounded > 0) creditors.push({ name, amount: rounded });
+      else if (rounded < 0) debtors.push({ name, amount: -rounded });
     });
 
     creditors.sort((a, b) => b.amount - a.amount);
     debtors.sort((a, b) => b.amount - a.amount);
 
     const transfers = [];
-    let i = 0;
-    let j = 0;
+    let i = 0, j = 0;
 
     while (i < debtors.length && j < creditors.length) {
       const debtor = debtors[i];
       const creditor = creditors[j];
+
       const amt = Math.min(debtor.amount, creditor.amount);
 
       if (amt > 0) {
-        transfers.push({ from: debtor.name, to: creditor.name, amount: amt });
+        transfers.push({
+          from: debtor.name,
+          to: creditor.name,
+          amount: amt
+        });
       }
 
       debtor.amount -= amt;
       creditor.amount -= amt;
 
-      if (debtor.amount <= 0) i += 1;
-      if (creditor.amount <= 0) j += 1;
+      if (debtor.amount <= 0) i++;
+      if (creditor.amount <= 0) j++;
     }
 
     if (!transfers.length) {
-      settleBox.innerHTML = `<p class="settle-line">Everyone is settled up already. 🎉</p>`;
+      settleBox.innerHTML = `<p class="settle-line">Everyone is settled up 🎉</p>`;
       return;
     }
 
     settleBox.innerHTML = `
-      <p class="settle-line">Total spent: ₹${total.toFixed(
-        0
-      )}. Each person should end up paying about ₹${share.toFixed(0)}.</p>
-      ${transfers
-        .map(
-          (t) =>
-            `<p class="settle-line">${t.from} → ${t.to}: <strong>₹${t.amount.toFixed(
-              0
-            )}</strong></p>`
-        )
-        .join("")}
+      ${transfers.map(t =>
+        `<p class="settle-line">${t.from} → ${t.to}: <strong>₹${t.amount}</strong></p>`
+      ).join("")}
     `;
   }
 
   addBtn.addEventListener("click", () => {
-    const name = (byId("friendName").value || "").trim();
-    const amount = Number(byId("friendAmount").value || 0);
-    if (!name || !amount) return;
+    const payer = (byId("friendName").value || "").trim();
+    const peopleInput = (byId("splitPeople").value || "").trim();
+    const amount = Number(byId("totalAmount").value || 0);
 
-    splitParticipants.add(name);
-    splitExpenses.push({ payer: name, amount });
+    if (!payer || !peopleInput || !amount) return;
+
+    const people = peopleInput.split(",").map(p => p.trim());
+
+    people.forEach(p => splitParticipants.add(p));
+    splitParticipants.add(payer);
+
+    splitExpenses.push({
+      payer,
+      participants: people,
+      amount
+    });
 
     byId("friendName").value = "";
-    byId("friendAmount").value = "";
+    byId("splitPeople").value = "";
+    byId("totalAmount").value = "";
 
     renderSplitState();
   });
 }
-
 function initAIHint() {
   const btn = byId("aiSuggestBtn");
   const promptEl = byId("aiPrompt");
