@@ -390,46 +390,60 @@
           </div>
         </section>
 
-        <section class="section hidden" id="split-section">
-          <div class="grid grid-2">
-            <div class="card">
-              <div class="card-header">
-                <h2>Split Buddy</h2>
-                <span class="pill-neutral">Group expenses</span>
-              </div>
-              <p class="card-sub">
-                Create a pot with friends, track who owes what, and let Pocketly suggest fair
-                settlements.
-              </p>
-              <form class="form" id="splitForm">
-                <div class="form-row">
-                  <label for="friendName">Friend name</label>
-                  <input type="text" id="friendName" placeholder="e.g. Ayesha" />
-                </div>
-                <div class="form-row">
-                  <label for="friendAmount">Amount they paid for the group</label>
-                  <input type="number" id="friendAmount" placeholder="e.g. 600" />
-                </div>
-                <button type="button" class="primary-btn small" id="addSplitBtn">
-                  Add to pot
-                </button>
-              </form>
-              <ul class="split-list" id="splitList"></ul>
-            </div>
+ <section class="section hidden" id="split-section">
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-header">
+        <h2>Split Buddy</h2>
+        <span class="pill-neutral">Group expenses</span>
+      </div>
 
-            <div class="card">
-              <div class="card-header">
-                <h2>Suggested Settle-up</h2>
-              </div>
-              <div class="settle-box" id="settleBox">
-                <p class="settle-empty">
-                  Add a few group spends and Pocketly will suggest the minimum number of payments to
-                  make it fair.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+      <p class="card-sub">
+        Create a pot with friends, track who owes what, and let Pocketly suggest fair
+        settlements.
+      </p>
+<form class="form" id="splitForm">
+
+  <!-- WHO PAID -->
+  <div class="form-row">
+    <label for="friendName">Who paid</label>
+    <input type="text" id="friendName" placeholder="e.g. Maitri" />
+  </div>
+
+  <!-- FOR WHOM -->
+  <div class="form-row">
+    <label for="splitPeople">For whom (comma separated)</label>
+    <input type="text" id="splitPeople" placeholder="e.g. Maitri, Tvesha, Arushi" />
+  </div>
+
+  <!-- TOTAL AMOUNT -->
+  <div class="form-row">
+    <label for="totalAmount">Total amount paid</label>
+    <input type="number" id="totalAmount" placeholder="e.g. 1000" />
+  </div>
+
+  <button type="button" class="primary-btn small" id="addSplitBtn">
+    Add to pot
+  </button>
+
+</form>
+
+      <ul class="split-list" id="splitList"></ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>Suggested Settle-up</h2>
+      </div>
+      <div class="settle-box" id="settleBox">
+        <p class="settle-empty">
+          Add a few group spends and Pocketly will suggest the minimum number of payments to
+          make it fair.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
         <section class="section hidden" id="insights-section">
           <div class="grid grid-2">
