@@ -286,12 +286,16 @@ function initBudget() {
   const form = byId("budgetForm");
   const result = byId("budgetResult");
   const dailyEl = byId("dailyBudget");
-  const tipEl = byId("budgetTip");
 
-  if (!form || !result || !dailyEl || !tipEl) return;
+  const fixedBar = byId("fixedBar");
+  const savingsBar = byId("savingsBar");
+  const flexBar = byId("flexBar");
+
+  if (!form) return;
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+
     const income = Number(byId("incomeInput").value || 0);
     const fixed = Number(byId("fixedInput").value || 0);
     const savings = Number(byId("savingsInput").value || 0);
@@ -300,23 +304,19 @@ function initBudget() {
     const flex = Math.max(income - fixed - savings, 0);
     const perDay = Math.floor(flex / days);
 
-    dailyEl.textContent = `₹${perDay}`;
+    // ✅ Daily budget
+    dailyEl.textContent = "₹" + perDay;
 
-    if (perDay < 150) {
-      tipEl.textContent =
-        "Tight month. Pocketly would lower your food & fun targets, and prioritise your must-have spends first.";
-    } else if (perDay < 350) {
-      tipEl.textContent =
-        "Balanced! You can afford small daily treats, but big spends should come from savings or one-off income.";
-    } else {
-      tipEl.textContent =
-        "You have room to breathe. Consider auto-routing a bit more to your goals so future-you can flex harder.";
-    }
+    // ✅ Update chart
+    const total = income || 1;
+
+    fixedBar.style.width = (fixed / total) * 100 + "%";
+    savingsBar.style.width = (savings / total) * 100 + "%";
+    flexBar.style.width = (flex / total) * 100 + "%";
 
     result.classList.remove("hidden");
   });
 }
-
 function initSplitBuddy() {
   const addBtn = byId("addSplitBtn");
   const list = byId("splitList");
